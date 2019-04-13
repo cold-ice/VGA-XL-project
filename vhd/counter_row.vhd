@@ -1,40 +1,40 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY COUNTER_ROW IS
+entity COUNTER_ROW is
 
-PORT(		STROBE  			: IN  STD_LOGIC;
-			EN					: IN STD_LOGIC;
-			CL					: IN STD_LOGIC;
-			COUNT_Y			: OUT INTEGER RANGE 0 TO 525
-);
+  port(STROBE  : in  std_logic;
+       EN      : in  std_logic;
+       CL      : in  std_logic;
+       COUNT_Y : out integer range 0 to 525
+       );
 
-END COUNTER_ROW;
+end COUNTER_ROW;
 
-ARCHITECTURE behavioural OF COUNTER_ROW IS
+architecture behavioural of COUNTER_ROW is
 
-SIGNAL COUNT_BUFFER : INTEGER RANGE 0 TO 525:=0;
+  signal COUNT_BUFFER : integer range 0 to 525 := 0;
 
-BEGIN
+begin
 
-COUNT_Y <= COUNT_BUFFER;
+  COUNT_Y <= COUNT_BUFFER;
 
-Counter: PROCESS(STROBE, EN, CL)
-BEGIN
-	IF(EN='1') THEN
-		IF(FALLING_EDGE(STROBE)) THEN
-			IF(COUNT_BUFFER<525-1) THEN
-				COUNT_BUFFER <= COUNT_BUFFER+1;
-			ELSE
-				COUNT_BUFFER<=0;
-				-- Giunti a 525 il contatore va resettato a 0 perche' e' trascorso esattamente
-				-- il tempo totale di scansione dello schermo
-			END IF;
-		END IF;
-	ELSIF(CL='1') THEN
-		COUNT_BUFFER <= 0;		
-	END IF;
-END PROCESS;
+  Counter : process(STROBE, EN, CL)
+  begin
+    if(EN = '1') then
+      if(FALLING_EDGE(STROBE)) then
+        if(COUNT_BUFFER < 525-1) then
+          COUNT_BUFFER <= COUNT_BUFFER+1;
+        else
+          COUNT_BUFFER <= 0;
+        -- Giunti a 525 il contatore va resettato a 0 perche' e' trascorso esattamente
+        -- il tempo totale di scansione dello schermo
+        end if;
+      end if;
+    elsif(CL = '1') then
+      COUNT_BUFFER <= 0;
+    end if;
+  end process;
 
-END behavioural;
+end behavioural;

@@ -1,28 +1,28 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY ADDER IS
+entity ADDER is
 
-PORT(		DATA_IN0  		: IN SIGNED(15 downto 0);
-			DATA_IN1  		: IN SIGNED(15 downto 0);
-			C0					: IN STD_LOGIC;
-			DATA_OUT			: OUT SIGNED(15 downto 0)
-);
+  port(DATA_IN0 : in  signed(15 downto 0);
+       DATA_IN1 : in  signed(15 downto 0);
+       C0       : in  std_logic;
+       DATA_OUT : out signed(15 downto 0)
+       );
 
-END ADDER;
+end ADDER;
 
-ARCHITECTURE behavioural OF ADDER IS
+architecture behavioural of ADDER is
 
-SIGNAL SUM, SUBTRACTION : SIGNED(15 downto 0);
+  signal SUM, SUBTRACTION : signed(15 downto 0);
 
-BEGIN
+begin
 
-WITH C0 SELECT DATA_OUT<=	SUM WHEN '0',
-									SUBTRACTION WHEN '1',
-									SUM WHEN others;
-									
-SUM<=DATA_IN0 + DATA_IN1;
-SUBTRACTION<=DATA_IN0 - DATA_IN1;
+  with C0 select DATA_OUT <= SUM when '0',
+                             SUBTRACTION when '1',
+                             SUM         when others;
 
-END behavioural;
+  SUM         <= DATA_IN0 + DATA_IN1;
+  SUBTRACTION <= DATA_IN0 - DATA_IN1;
+
+end behavioural;

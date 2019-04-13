@@ -1,33 +1,33 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY STROBE_GEN IS
+entity STROBE_GEN is
 
-GENERIC (DIVIDER			: INTEGER);
-PORT(		CLOCK_50  		: IN  STD_LOGIC;
-			EN					: IN STD_LOGIC;
-			STROBE			: OUT STD_LOGIC
-);
+  generic (DIVIDER : integer);
+  port(CLOCK_50 : in  std_logic;
+       EN       : in  std_logic;
+       STROBE   : out std_logic
+       );
 
-END STROBE_GEN;
+end STROBE_GEN;
 
-ARCHITECTURE behavioural OF STROBE_GEN IS
+architecture behavioural of STROBE_GEN is
 
-SIGNAL STROBE_BUFFER, FLAG : STD_LOGIC :='0';
+  signal STROBE_BUFFER, FLAG : std_logic := '0';
 
-BEGIN
+begin
 
-STROBE <= STROBE_BUFFER;
+  STROBE <= STROBE_BUFFER;
 
-Strobe_gen: PROCESS(EN, CLOCK_50)
-BEGIN
-IF(EN='0') THEN
-	STROBE_BUFFER <= '0';
-ELSIF(FALLING_EDGE(CLOCK_50)) THEN
-	STROBE_BUFFER <=  NOT STROBE_BUFFER;
-END IF;
+  Strobe_gen : process(EN, CLOCK_50)
+  begin
+    if(EN = '0') then
+      STROBE_BUFFER <= '0';
+    elsif(FALLING_EDGE(CLOCK_50)) then
+      STROBE_BUFFER <= not STROBE_BUFFER;
+    end if;
 
-END PROCESS;
+  end process;
 
-END behavioural;
+end behavioural;

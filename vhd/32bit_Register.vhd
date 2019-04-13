@@ -1,41 +1,41 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY REGISTER_32BIT IS
+entity REGISTER_32BIT is
 
-PORT(		STROBE  			: IN  STD_LOGIC;
-			EN					: IN STD_LOGIC;
-			CL					: IN STD_LOGIC;
-			COUNT_X			: OUT INTEGER RANGE 0 TO 797
-);
+  port(STROBE  : in  std_logic;
+       EN      : in  std_logic;
+       CL      : in  std_logic;
+       COUNT_X : out integer range 0 to 797
+       );
 
-END REGISTER_32BIT;
+end REGISTER_32BIT;
 
-ARCHITECTURE behavioural OF REGISTER_32BIT IS
+architecture behavioural of REGISTER_32BIT is
 
-SIGNAL COUNT_BUFFER : INTEGER RANGE 0 TO 797 :=0;
+  signal COUNT_BUFFER : integer range 0 to 797 := 0;
 
-BEGIN
+begin
 
-COUNT_X <= COUNT_BUFFER;
+  COUNT_X <= COUNT_BUFFER;
 
-Counter: PROCESS(STROBE, EN, CL)
-BEGIN
-	IF(EN='1') THEN
-		IF(FALLING_EDGE(STROBE)) THEN
-			IF(COUNT_BUFFER<797) THEN
-				COUNT_BUFFER <= COUNT_BUFFER+1;
-			ELSE
-				COUNT_BUFFER<=0;
-			END IF;
-		END IF;
-	ELSIF(CL='1') THEN
-		COUNT_BUFFER <= 0;
-	--ELSE
-			
-	END IF;
+  Counter : process(STROBE, EN, CL)
+  begin
+    if(EN = '1') then
+      if(FALLING_EDGE(STROBE)) then
+        if(COUNT_BUFFER < 797) then
+          COUNT_BUFFER <= COUNT_BUFFER+1;
+        else
+          COUNT_BUFFER <= 0;
+        end if;
+      end if;
+    elsif(CL = '1') then
+      COUNT_BUFFER <= 0;
+      --ELSE
 
-END PROCESS;
+    end if;
 
-END behavioural;
+  end process;
+
+end behavioural;

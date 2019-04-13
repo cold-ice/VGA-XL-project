@@ -1,43 +1,43 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY COUNTER IS
+entity COUNTER is
 
-GENERIC (MAX				: INTEGER;
-			DEBUG 			: INTEGER);
-PORT(		STROBE  			: IN  STD_LOGIC;
-			EN					: IN STD_LOGIC;
-			CL					: IN STD_LOGIC;
-			COUNT				: OUT INTEGER RANGE 0 TO MAX
-);
+  generic (MAX   : integer;
+           DEBUG : integer);
+  port(STROBE : in  std_logic;
+       EN     : in  std_logic;
+       CL     : in  std_logic;
+       COUNT  : out integer range 0 to MAX
+       );
 
-END COUNTER;
+end COUNTER;
 
-ARCHITECTURE behavioural OF COUNTER IS
+architecture behavioural of COUNTER is
 
-SIGNAL COUNT_BUFFER : INTEGER RANGE 0 TO MAX :=DEBUG;
+  signal COUNT_BUFFER : integer range 0 to MAX := DEBUG;
 
-BEGIN
+begin
 
-COUNT <= COUNT_BUFFER;
+  COUNT <= COUNT_BUFFER;
 
-Counter: PROCESS(STROBE, EN, CL)
-BEGIN
-	IF(EN='1') THEN
-		IF(RISING_EDGE(STROBE)) THEN
-			IF(COUNT_BUFFER<MAX) THEN
-				COUNT_BUFFER <= COUNT_BUFFER+1;
-			ELSE
-				COUNT_BUFFER<=0;
-			END IF;
-		END IF;
-	ELSIF(CL='1') THEN
-		COUNT_BUFFER <= 0;
-	--ELSE
-			
-	END IF;
+  Counter : process(STROBE, EN, CL)
+  begin
+    if(EN = '1') then
+      if(RISING_EDGE(STROBE)) then
+        if(COUNT_BUFFER < MAX) then
+          COUNT_BUFFER <= COUNT_BUFFER+1;
+        else
+          COUNT_BUFFER <= 0;
+        end if;
+      end if;
+    elsif(CL = '1') then
+      COUNT_BUFFER <= 0;
+      --ELSE
 
-END PROCESS;
+    end if;
 
-END behavioural;
+  end process;
+
+end behavioural;

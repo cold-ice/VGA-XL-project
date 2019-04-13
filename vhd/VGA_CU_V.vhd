@@ -1,91 +1,91 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY CU_VGA_V IS
+entity CU_VGA_V is
 
-GENERIC (ROWS				: INTEGER);
-PORT(		CLOCK_50  		: IN  STD_LOGIC;
-			RESET				: IN STD_LOGIC;
-			ROW				: IN INTEGER RANGE 0 to 525; -- Riga corrente
-			VC_CL				: OUT STD_LOGIC; -- Clear del contatore di riga
-			RGB_CTRL			: OUT STD_LOGIC; -- Segnale di controllo per abilitare il componente VGA decoder
-			VS_CTRL			: OUT STD_LOGIC  -- Segnale inviato a HSYNC 
-);
+  generic (ROWS : integer);
+  port(CLOCK_50 : in  std_logic;
+       RESET    : in  std_logic;
+       ROW      : in  integer range 0 to 525;  -- Riga corrente
+       VC_CL    : out std_logic;        -- Clear del contatore di riga
+       RGB_CTRL : out std_logic;  -- Segnale di controllo per abilitare il componente VGA decoder
+       VS_CTRL  : out std_logic         -- Segnale inviato a HSYNC
+       );
 
-END CU_VGA_V;
+end CU_VGA_V;
 
-ARCHITECTURE behavioural OF CU_VGA_V IS
+architecture behavioural of CU_VGA_V is
 
-constant V_S			   : natural := 2;
-constant V_BACK_PORCH 	: natural := 33;
-constant V_VIDEO_OUT 	: natural := 480;
-constant V_FRONT_PORCH 	: natural := 10;
-constant V_BEGIN			: natural := V_S+V_BACK_PORCH;
-constant V_END				: natural := V_S+V_BACK_PORCH+V_FRONT_PORCH;
+  constant V_S           : natural := 2;
+  constant V_BACK_PORCH  : natural := 33;
+  constant V_VIDEO_OUT   : natural := 480;
+  constant V_FRONT_PORCH : natural := 10;
+  constant V_BEGIN       : natural := V_S+V_BACK_PORCH;
+  constant V_END         : natural := V_S+V_BACK_PORCH+V_FRONT_PORCH;
 
-TYPE STATES IS (RES, VSYNC, BACK_PORCH, VIDEO_ON, FRONT_PORCH);
-SIGNAL STATUS, NEXTSTATUS : STATES :=VSYNC;
+  type STATES is (RES, VSYNC, BACK_PORCH, VIDEO_ON, FRONT_PORCH);
+  signal STATUS, NEXTSTATUS : STATES := VSYNC;
 
-BEGIN
+begin
 
-Status_update: PROCESS(CLOCK_50, RESET)
-BEGIN
-IF(RESET='1') THEN
-	STATUS<=RES;
-ELSIF(RISING_EDGE(CLOCK_50)) THEN
-	STATUS<=NEXTSTATUS;
-END IF;
-END PROCESS;
+  Status_update : process(CLOCK_50, RESET)
+  begin
+    if(RESET = '1') then
+      STATUS <= RES;
+    elsif(RISING_EDGE(CLOCK_50)) then
+      STATUS <= NEXTSTATUS;
+    end if;
+  end process;
 
-Status_check: PROCESS(ROW, STATUS)
-BEGIN
+  Status_check : process(ROW, STATUS)
+  begin
 
-RGB_CTRL<='0';
-VC_CL<='0';
+    RGB_CTRL <= '0';
+    VC_CL    <= '0';
 
-VS_CTRL<='1';
-CASE STATUS IS
+    VS_CTRL <= '1';
+    case STATUS is
 
-	WHEN RES =>
-		VC_CL<='1';
-		VS_CTRL<='0';
-		NEXTSTATUS<=VSYNC;
-	
-	WHEN VSYNC =>
-		VS_CTRL<='0';
-		IF(ROW=V_S) THEN
-			NEXTSTATUS <=BACK_PORCH;
-		ELSE
-			NEXTSTATUS <= VSYNC;
-		END IF;
-		
-	WHEN BACK_PORCH =>
-		IF(ROW=V_S+V_BACK_PORCH) THEN
-			NEXTSTATUS <= VIDEO_ON;
-		ELSE
-			NEXTSTATUS <= BACK_PORCH;
-		END IF;
-		
-	WHEN VIDEO_ON =>
-		RGB_CTRL<='1';
-		IF(ROW=V_S+V_BACK_PORCH+V_VIDEO_OUT) THEN
-			NEXTSTATUS <= FRONT_PORCH;
-		ELSE
-			NEXTSTATUS <= VIDEO_ON;
-		END IF;
-		
-	WHEN FRONT_PORCH =>
-		IF(ROW=0) THEN
-			NEXTSTATUS <= VSYNC;
-		ELSE
-			NEXTSTATUS <= FRONT_PORCH;
-		END IF;
-		
-	WHEN OTHERS =>
-		VC_CL<='1';
-		VS_CTRL<='0';
-		NEXTSTATUS<=VSYNC;	
-END CASE;
-END PROCESS;
-END behavioural;
+      when RES =>
+        VC_CL      <= '1';
+        VS_CTRL    <= '0';
+        NEXTSTATUS <= VSYNC;
+
+      when VSYNC =>
+        VS_CTRL <= '0';
+        if(ROW = V_S) then
+          NEXTSTATUS <= BACK_PORCH;
+        else
+          NEXTSTATUS <= VSYNC;
+        end if;
+
+      when BACK_PORCH =>
+        if(ROW = V_S+V_BACK_PORCH) then
+          NEXTSTATUS <= VIDEO_ON;
+        else
+          NEXTSTATUS <= BACK_PORCH;
+        end if;
+
+      when VIDEO_ON =>
+        RGB_CTRL <= '1';
+        if(ROW = V_S+V_BACK_PORCH+V_VIDEO_OUT) then
+          NEXTSTATUS <= FRONT_PORCH;
+        else
+          NEXTSTATUS <= VIDEO_ON;
+        end if;
+
+      when FRONT_PORCH =>
+        if(ROW = 0) then
+          NEXTSTATUS <= VSYNC;
+        else
+          NEXTSTATUS <= FRONT_PORCH;
+        end if;
+
+      when others =>
+        VC_CL      <= '1';
+        VS_CTRL    <= '0';
+        NEXTSTATUS <= VSYNC;
+    end case;
+  end process;
+end behavioural;

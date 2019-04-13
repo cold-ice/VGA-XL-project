@@ -1,31 +1,31 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-USE ieee.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY REG_16bit IS
+entity REG_16bit is
 
-PORT(		DATA_IN  		: IN STD_LOGIC_VECTOR(15 downto 0);
-			CLOCK_50			: IN STD_LOGIC;
-			EN					: IN STD_LOGIC;
-			CL					: IN STD_LOGIC;
-			DATA_OUT			: OUT STD_LOGIC_VECTOR(15 downto 0)
-);
+  port(DATA_IN  : in  std_logic_vector(15 downto 0);
+       CLOCK_50 : in  std_logic;
+       EN       : in  std_logic;
+       CL       : in  std_logic;
+       DATA_OUT : out std_logic_vector(15 downto 0)
+       );
 
-END REG_16bit;
+end REG_16bit;
 
-ARCHITECTURE behavioural OF REG_16bit IS
+architecture behavioural of REG_16bit is
 
-BEGIN
+begin
 
-reg: PROCESS(CLOCK_50, CL)
-BEGIN
-IF(CL='1') THEN
-	DATA_OUT<=(others=>'0');
-ELSIF(RISING_EDGE(CLOCK_50)) THEN
-	IF(EN='1') THEN
-		DATA_OUT<=DATA_IN;
-	END IF;
-END IF;
-END PROCESS;
+  reg : process(CLOCK_50, CL)
+  begin
+    if(CL = '1') then
+      DATA_OUT <= (others => '0');
+    elsif(RISING_EDGE(CLOCK_50)) then
+      if(EN = '1') then
+        DATA_OUT <= DATA_IN;
+      end if;
+    end if;
+  end process;
 
-END behavioural;
+end behavioural;
