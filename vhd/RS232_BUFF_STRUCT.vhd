@@ -5,19 +5,18 @@ use ieee.std_logic_arith.all;
 use work.RS232_CONSTANTS_PKG.all;
 
 entity RS232_BUFF_STRUCT is
-  port (
-    clk            : in  std_logic;
-    rst            : in  std_logic;
-    uart_line      : in  std_logic;
-    data_out_ready : out std_logic;  -- Segnale che abilita l'aggiornamento della posizione a schermo
-    data_out       : out std_logic_vector(9 downto 0);
-    -- Segnali di aggiornamento posizione a schermo
-    data_out_x     : out std_logic_vector(15 downto 0);
-    data_out_y     : out std_logic_vector(15 downto 0);
-    data_out_z     : out std_logic_vector(15 downto 0);
-    uart_clock_out : out std_logic;
-    status         : out std_logic  -- Segnale che avvisa che sta avvenendo una trasmissione seriale (attivo basso)
-    );
+  port (clk            : in  std_logic;
+        rst            : in  std_logic;
+        uart_line      : in  std_logic;
+        data_out_ready : out std_logic;  -- Segnale che abilita l'aggiornamento della posizione a schermo
+        data_out       : out std_logic_vector(9 downto 0);
+        -- Segnali di aggiornamento posizione a schermo
+        data_out_x     : out std_logic_vector(15 downto 0);
+        data_out_y     : out std_logic_vector(15 downto 0);
+        data_out_z     : out std_logic_vector(15 downto 0);
+        uart_clock_out : out std_logic;
+        status         : out std_logic  -- Segnale che avvisa che sta avvenendo una trasmissione seriale (attivo basso)
+        );
 end entity RS232_BUFF_STRUCT;
 
 architecture struct of RS232_BUFF_STRUCT is

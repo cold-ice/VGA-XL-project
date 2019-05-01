@@ -3,13 +3,12 @@ use ieee.std_logic_1164.all;
 
 entity d_reg is
   generic(N : integer);
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    load : in  std_logic;
-    d    : in  std_logic_vector(N-1 downto 0);
-    q    : out std_logic_vector(N-1 downto 0)
-    );
+  port (clk  : in  std_logic;
+        rst  : in  std_logic;
+        load : in  std_logic;
+        d    : in  std_logic_vector(N-1 downto 0);
+        q    : out std_logic_vector(N-1 downto 0)
+        );
 end entity d_reg;
 
 architecture rtl of d_reg is

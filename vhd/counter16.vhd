@@ -4,12 +4,11 @@ use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
 entity counter16 is
-  port (
-    clock, reset : in  std_logic;
-    clear        : in  std_logic;
-    end_val      : in  std_logic_vector(15 downto 0);
-    tc           : out std_logic
-    );
+  port (clock, reset : in  std_logic;
+        clear        : in  std_logic;
+        end_val      : in  std_logic_vector(15 downto 0);
+        tc           : out std_logic
+        );
 end entity counter16;
 
 architecture rtl of counter16 is

@@ -7,27 +7,26 @@ use ieee.std_logic_unsigned.all;
 --use ieee.std_logic_arith.all;
 
 entity control_unit is
-  port (
-    clock          : in  std_logic;
-    reset          : in  std_logic;
-    tc_char        : in  std_logic;
-    start_byte     : in  std_logic_vector(7 downto 0);
-    stop_byte      : in  std_logic_vector(7 downto 0);
-    --tc_cnt3    : in std_logic;
-    --clear       : out std_logic;
-    en_reg1        : out std_logic;
-    en_reg2        : out std_logic;
-    en_reg_buff0   : out std_logic;
-    en_reg_buff1   : out std_logic;
-    en_reg_buff2   : out std_logic;
-    en_reg_buff3   : out std_logic;
-    en_reg_buff4   : out std_logic;
-    en_reg_buff5   : out std_logic;
-    --en_cnt3    : out std_logic;
-    en_out_regs    : out std_logic;
-    data_out_ready : out std_logic
+  port (clock          : in  std_logic;
+        reset          : in  std_logic;
+        tc_char        : in  std_logic;
+        start_byte     : in  std_logic_vector(7 downto 0);
+        stop_byte      : in  std_logic_vector(7 downto 0);
+        --tc_cnt3    : in std_logic;
+        --clear       : out std_logic;
+        en_reg1        : out std_logic;
+        en_reg2        : out std_logic;
+        en_reg_buff0   : out std_logic;
+        en_reg_buff1   : out std_logic;
+        en_reg_buff2   : out std_logic;
+        en_reg_buff3   : out std_logic;
+        en_reg_buff4   : out std_logic;
+        en_reg_buff5   : out std_logic;
+        --en_cnt3    : out std_logic;
+        en_out_regs    : out std_logic;
+        data_out_ready : out std_logic
    --sel_demux      : out std_logic_vector(2 downto 0)
-    );
+        );
 end entity control_unit;
 
 architecture struct of control_unit is

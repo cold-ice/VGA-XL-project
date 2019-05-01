@@ -4,13 +4,12 @@ use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
 entity shift_reg10 is
-  port (
-    uart_clock, reset : in  std_logic;
-    clear             : in  std_logic;
-    shift_enable      : in  std_logic;
-    rx_line           : in  std_logic;
-    data_out          : out std_logic_vector(9 downto 0)
-    );
+  port (uart_clock, reset : in  std_logic;
+        clear             : in  std_logic;
+        shift_enable      : in  std_logic;
+        rx_line           : in  std_logic;
+        data_out          : out std_logic_vector(9 downto 0)
+        );
 end entity shift_reg10;
 
 architecture rtl of shift_reg10 is

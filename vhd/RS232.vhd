@@ -4,17 +4,16 @@ use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
 entity RS232 is
-  port (
-    clock, reset   : in  std_logic;
-    uart_line      : in  std_logic;
-    data_out_ready : out std_logic;
-    data_out       : out std_logic_vector(9 downto 0);
-    data_out_x     : out std_logic_vector(15 downto 0);
-    data_out_y     : out std_logic_vector(15 downto 0);
-    data_out_z     : out std_logic_vector(15 downto 0);
-    uart_clock_out : out std_logic;
-    status         : out std_logic
-    );
+  port (clock, reset   : in  std_logic;
+        uart_line      : in  std_logic;
+        data_out_ready : out std_logic;
+        data_out       : out std_logic_vector(9 downto 0);
+        data_out_x     : out std_logic_vector(15 downto 0);
+        data_out_y     : out std_logic_vector(15 downto 0);
+        data_out_z     : out std_logic_vector(15 downto 0);
+        uart_clock_out : out std_logic;
+        status         : out std_logic
+        );
 end entity RS232;
 
 architecture struct of RS232 is

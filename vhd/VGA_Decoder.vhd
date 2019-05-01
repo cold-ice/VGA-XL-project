@@ -48,13 +48,13 @@ begin
   RGB_output : process(EN, ROW, COLUMN, XPOS, YPOS, ZPOS)
   begin
     if (COLUMN >= H_BEGIN+315+to_integer(signed(XPOS))+to_integer(signed(YPOS)) and COLUMN < H_END-315+to_integer(signed(XPOS))-to_integer(signed(YPOS)) and ROW >= V_BEGIN+235+to_integer(signed(ZPOS))+to_integer(signed(YPOS)) and ROW < V_END-235+to_integer(signed(ZPOS))-to_integer(signed(YPOS)) and EN = '1') then
-      R <="1111111111";
-      G <=(others => '0');
-      B <=(others => '0');
+      R <= "1111111111";
+      G <= (others => '0');
+      B <= (others => '0');
     else
-      R <=(others => '0');
-      G <=(others => '0');
-      B <=(others => '0');
+      R <= (others => '0');
+      G <= (others => '0');
+      B <= (others => '0');
     end if;
   end process;
 

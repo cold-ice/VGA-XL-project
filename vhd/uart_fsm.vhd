@@ -4,14 +4,13 @@ use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
 entity uart_fsm is
-  port (
-    clock, reset : in  std_logic;
-    uart_line    : in  std_logic;
-    tc_char      : in  std_logic;
-    clear        : out std_logic;
-    shift_enable : out std_logic;
-    waiting      : out std_logic
-    );
+  port (clock, reset : in  std_logic;
+        uart_line    : in  std_logic;
+        tc_char      : in  std_logic;
+        clear        : out std_logic;
+        shift_enable : out std_logic;
+        waiting      : out std_logic
+        );
 end entity uart_fsm;
 
 architecture rtl of uart_fsm is

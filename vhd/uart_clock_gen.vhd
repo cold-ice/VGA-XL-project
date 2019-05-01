@@ -4,12 +4,11 @@ use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
 entity uart_clock_gen is
-  port (
-    clock, reset : in  std_logic;
-    clear        : in  std_logic;
-    end_val      : in  std_logic_vector(15 downto 0);
-    uart_clock   : out std_logic
-    );
+  port (clock, reset : in  std_logic;
+        clear        : in  std_logic;
+        end_val      : in  std_logic_vector(15 downto 0);
+        uart_clock   : out std_logic
+        );
 end entity uart_clock_gen;
 
 architecture rtl of uart_clock_gen is

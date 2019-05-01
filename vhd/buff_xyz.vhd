@@ -8,16 +8,15 @@ use ieee.std_logic_unsigned.all;
 use work.RS232_CONSTANTS_PKG.all;
 
 entity buff_xyz is
-  port (
-    clock          : in  std_logic;
-    reset          : in  std_logic;
-    data_in_buff   : in  std_logic_vector(7 downto 0);
-    data_in_ready  : in  std_logic;
-    data_out_ready : out std_logic;
-    data_out_x     : out std_logic_vector(15 downto 0);
-    data_out_y     : out std_logic_vector(15 downto 0);
-    data_out_z     : out std_logic_vector(15 downto 0)
-    );
+  port (clock          : in  std_logic;
+        reset          : in  std_logic;
+        data_in_buff   : in  std_logic_vector(7 downto 0);
+        data_in_ready  : in  std_logic;
+        data_out_ready : out std_logic;
+        data_out_x     : out std_logic_vector(15 downto 0);
+        data_out_y     : out std_logic_vector(15 downto 0);
+        data_out_z     : out std_logic_vector(15 downto 0)
+        );
 end entity buff_xyz;
 
 architecture struct of buff_xyz is

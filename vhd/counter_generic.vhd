@@ -5,15 +5,14 @@ use ieee.std_logic_arith.all;
 
 entity counter_generic is
   generic (N : integer);
-  port (
-    clk     : in  std_logic;
-    rst     : in  std_logic;
-    clear   : in  std_logic;
-    en      : in  std_logic;
-    end_val : in  std_logic_vector(N-1 downto 0);
-    cnt_out : out std_logic_vector(N-1 downto 0);
-    tc      : out std_logic
-    );
+  port (clk     : in  std_logic;
+        rst     : in  std_logic;
+        clear   : in  std_logic;
+        en      : in  std_logic;
+        end_val : in  std_logic_vector(N-1 downto 0);
+        cnt_out : out std_logic_vector(N-1 downto 0);
+        tc      : out std_logic
+        );
 end entity counter_generic;
 
 architecture rtl of counter_generic is
