@@ -22,12 +22,12 @@ entity VGA_Controller is
        GPIO_1    : in  std_logic_vector(35 downto 0);
        -- SEGNALI DI DEBUG
        GPIO_0    : out std_logic_vector(35 downto 0);
-       KEY       : in  std_logic_vector(3 downto 0)   --;
-   -- commenta righe seguenti per modalita' release o decommentale per modalita' testbench
---                      X_UPDATE                : IN STD_LOGIC_VECTOR(15 downto 0);
---                      Y_UPDATE                : IN STD_LOGIC_VECTOR(15 downto 0);
---                      Z_UPDATE                : IN STD_LOGIC_VECTOR(15 downto 0);
---                      data_out_ready: IN STD_LOGIC
+       KEY       : in  std_logic_vector(3 downto 0);
+       -- commenta righe seguenti per modalita' release o decommentale per modalita' testbench
+       X_UPDATE                : IN STD_LOGIC_VECTOR(15 downto 0);
+       Y_UPDATE                : IN STD_LOGIC_VECTOR(15 downto 0);
+       Z_UPDATE                : IN STD_LOGIC_VECTOR(15 downto 0);
+       data_out_ready: IN STD_LOGIC
        );
 
 end VGA_Controller;
@@ -111,8 +111,8 @@ architecture behavioural of VGA_Controller is
   signal DATA_READY_KEY, FLAG, DATA_READY                             : std_logic;
   signal X_BUFF, Y_BUFF, Z_BUFF, X_KEY, Y_KEY, Z_KEY                  : signed(15 downto 0);
 -- Commenta le due seguenti righe per modalita' testbench
-  signal X_UPDATE, Y_UPDATE, Z_UPDATE                                 : std_logic_vector(15 downto 0);
-  signal data_out_ready                                               : std_logic;
+--signal X_UPDATE, Y_UPDATE, Z_UPDATE                                 : std_logic_vector(15 downto 0);
+--signal data_out_ready                                               : std_logic;
 
 begin
 
@@ -133,7 +133,7 @@ begin
   LEDG(0) <= DATA_READY;
 
 -- Commenta la riga seguente per modalita' testbench
-  serial : RS232_BUFF_STRUCT port map (CLOCK_50, NRES, uart_line, data_out_ready, open, X_UPDATE, Y_UPDATE, Z_UPDATE, open, LEDR(0));
+--serial : RS232_BUFF_STRUCT port map (CLOCK_50, NRES, uart_line, data_out_ready, open, X_UPDATE, Y_UPDATE, Z_UPDATE, open, LEDR(0));
 
 -- Unita' di controllo della scansione orizzontale
   CU_H : CU_VGA_H generic map(COLUMNS => COLUMNS)

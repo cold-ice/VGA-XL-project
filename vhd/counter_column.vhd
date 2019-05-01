@@ -21,7 +21,7 @@ begin
   COUNT_X <= COUNT_BUFFER;
 
   Counter : process(STROBE, EN, CL)
-    beginapprentissages
+    begin
     if(EN = '1') then
       if(FALLING_EDGE(STROBE)) then
         if(COUNT_BUFFER < 797-1) then
